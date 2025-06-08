@@ -1,3 +1,6 @@
+using Microsoft.AspNetCore.Http.HttpResults;
+using Portfolio.Application.Services;
+using Portfolio.Application.Extensions;
 using Portfolio.Infrastructure.Extensions;
 
 namespace Portfolio
@@ -16,10 +19,17 @@ namespace Portfolio
 
             // Register services
             builder.Services.AddInfrastructureServices(builder.Configuration);
+            builder.Services.AddApplicationServices();
 
             var app = builder.Build();
 
             app.MapGet("/", () => "Hello World!");
+
+            // All projects
+            app.MapGet("/api/projects", (ProjectService service) =>
+            {
+               return Results.Ok(service.GetAllProjects());
+            });
 
             app.Run();
         }

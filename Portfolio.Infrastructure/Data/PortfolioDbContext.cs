@@ -15,9 +15,9 @@ namespace Portfolio.Infrastructure.Data
         }
 
         // Database tables
-        DbSet<Project> Projects { get; set; }
-        DbSet<Technology> Technologies { get; set; }
-        DbSet<SemanticVersion> Versions { get; set; }
+        public DbSet<Project> Projects { get; set; }
+        public DbSet<Technology> Technologies { get; set; }
+        public DbSet<SemanticVersion> Versions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

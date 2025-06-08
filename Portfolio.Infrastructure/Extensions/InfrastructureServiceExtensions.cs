@@ -1,7 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Portfolio.Application.Interfaces;
+using Portfolio.Domain.Entities;
 using Portfolio.Infrastructure.Data;
+using Portfolio.Infrastructure.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +20,7 @@ namespace Portfolio.Infrastructure.Extensions
             services.AddDbContext<PortfolioDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("PortfolioDB"))
             );
+            services.AddScoped<IRepository<Project>, ProjectRepository>();
             return services;
         }
     }
