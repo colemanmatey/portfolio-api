@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Portfolio.Application.Services;
 using Portfolio.Application.Extensions;
 using Portfolio.Infrastructure.Extensions;
+using Portfolio.API.Endpoints;
 
 namespace Portfolio
 {
@@ -23,13 +24,9 @@ namespace Portfolio
 
             var app = builder.Build();
 
-            app.MapGet("/", () => "Hello World!");
-
-            // All projects
-            app.MapGet("/api/projects", (ProjectService service) =>
-            {
-               return Results.Ok(service.GetAllProjects());
-            });
+            // Register endpoints
+            app.MapGet("/", () => "Coleman's projects API!");
+            app.MapProjectEndpoints();
 
             app.Run();
         }
