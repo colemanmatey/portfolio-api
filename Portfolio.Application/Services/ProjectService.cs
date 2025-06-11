@@ -55,7 +55,7 @@ namespace Portfolio.Application.Services
         {
             var project = _repository.GetById(id);
 
-            return new ProjectReadDto() 
+            return new ProjectReadDto()
             {
                 Id = project.Id,
                 Title = project.Title,

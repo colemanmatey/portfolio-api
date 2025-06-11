@@ -6,21 +6,21 @@ GET {{URL}}/projects
 accept: application/json
 
 ### Get project by id
-GET {{URL}}/projects/1
+GET {{URL}}/projects/2
 accept: application/json
 
 ### Create project
 POST {{URL}}/projects
 Content-Type: application/json
 {
-  "title": "Christian magazine",
-  "description": "A hub for all Christians to share their stories",
+  "title": "Software magazine",
+  "description": "A hub for all Developers to share their stories",
   "category": "desktop",
   "status": "planned"
 }
 
 ### Update Project
-PUT {{URL}}/projects/1
+PUT {{URL}}/projects/6
 Content-Type: application/json
 {
   "title": "Portfolio App",
