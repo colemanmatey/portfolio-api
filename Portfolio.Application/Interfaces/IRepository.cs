@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 
 namespace Portfolio.Application.Interfaces
 {
-    public interface IRepository<T>
+    public interface IRepository<T> where T : class
     {
-        List<T> GetAll();
+        T GetById(int id);
+        IEnumerable<T> GetAll();
+        void Create(T entity);
+        bool Update(int id, T entity);
+        void Delete(int id);
     }
 }

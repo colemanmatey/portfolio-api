@@ -14,9 +14,27 @@ namespace Portfolio.Domain.Entities
         public string? Description { get; set; }
         public SoftwareCategory Category { get; set; }
         public ProjectStatus Status { get; set; }
-
+        
         // Navigational properties
-        public required List<Technology> Technologies { get; set; }
+        public List<Technology> Technologies { get; set; }
 
+        public Project()
+        {
+            Technologies = new List<Technology>();
+        }
+
+        public static SoftwareCategory ConvertToSoftwareCategoryEnum(string? input)
+        {
+            return Enum.TryParse<SoftwareCategory>(input, true, out var category) 
+                    ? category 
+                    : SoftwareCategory.None;
+        }
+
+        public static ProjectStatus ConvertToProjectStatusEnum(string? input)
+        {
+            return Enum.TryParse<ProjectStatus>(input, true, out var status)
+                    ? status
+                    : ProjectStatus.New;
+        }
     }
 }

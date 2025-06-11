@@ -1,10 +1,8 @@
-using Microsoft.AspNetCore.Http.HttpResults;
-using Portfolio.Application.Services;
+using Portfolio.API.Endpoints;
 using Portfolio.Application.Extensions;
 using Portfolio.Infrastructure.Extensions;
-using Portfolio.API.Endpoints;
 
-namespace Portfolio
+namespace Portfolio.API
 {
     public class Program
     {
@@ -15,7 +13,7 @@ namespace Portfolio
             // Load user secrets from the Infrastructure assembly in development
             if (builder.Environment.IsDevelopment())
             {
-                builder.Configuration.AddUserSecrets(typeof(InfrastructureServiceExtensions).Assembly);
+                builder.Configuration.AddUserSecrets(typeof(InfrastructureServices).Assembly);
             }
 
             // Register services
@@ -25,7 +23,7 @@ namespace Portfolio
             var app = builder.Build();
 
             // Register endpoints
-            app.MapGet("/", () => "Coleman's projects API!");
+            app.MapGet("/", () => "Welcome to Coleman's Portfolio API!");
             app.MapProjectEndpoints();
 
             app.Run();

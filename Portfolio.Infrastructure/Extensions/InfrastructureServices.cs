@@ -13,14 +13,18 @@ using System.Threading.Tasks;
 
 namespace Portfolio.Infrastructure.Extensions
 {
-    public static class InfrastructureServiceExtensions
+    public static class InfrastructureServices
     {
-        public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration) 
+        public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
         {
+            // Set up database connection
             services.AddDbContext<PortfolioDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("PortfolioDB"))
             );
-            services.AddScoped<IRepository<Project>, ProjectRepository>();
+
+            services.AddScoped<IRepository<Project>, Repository<Project>>();
+
+
             return services;
         }
     }

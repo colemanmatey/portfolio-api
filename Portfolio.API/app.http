@@ -1,0 +1,34 @@
+# For more info on HTTP files go to https://aka.ms/vs/httpfile
+@URL = https://localhost:7055
+
+### Get all projects
+GET {{URL}}/projects 
+accept: application/json
+
+### Get project by id
+GET {{URL}}/projects/1
+accept: application/json
+
+### Create project
+POST {{URL}}/projects
+Content-Type: application/json
+{
+  "title": "Christian magazine",
+  "description": "A hub for all Christians to share their stories",
+  "category": "desktop",
+  "status": "planned"
+}
+
+### Update Project
+PUT {{URL}}/projects/1
+Content-Type: application/json
+{
+  "title": "Portfolio App",
+  "description": "A documentation of all my personal projects",
+  "category": "Web",
+  "status": "Ongoing"
+}
+
+### Delete Project
+DELETE {{URL}}/projects/4
+Accept: application/json

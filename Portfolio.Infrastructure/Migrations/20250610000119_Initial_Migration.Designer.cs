@@ -11,7 +11,7 @@ using Portfolio.Infrastructure.Data;
 namespace Portfolio.Infrastructure.Migrations
 {
     [DbContext(typeof(PortfolioDbContext))]
-    [Migration("20250607013819_Initial_Migration")]
+    [Migration("20250610000119_Initial_Migration")]
     partial class Initial_Migration
     {
         /// <inheritdoc />
