@@ -8,7 +8,7 @@ namespace Portfolio.Domain.Enums
 {
     public enum SoftwareCategory
     {
-        None,
+        Unassigned,
         Web,
         Mobile,
         Desktop,

@@ -27,7 +27,7 @@ namespace Portfolio.Domain.Entities
         {
             return Enum.TryParse<SoftwareCategory>(input, true, out var category) 
                     ? category 
-                    : SoftwareCategory.None;
+                    : SoftwareCategory.Unassigned;
         }
 
         public static ProjectStatus ConvertToProjectStatusEnum(string? input)
