@@ -1,6 +1,5 @@
 ﻿using Portfolio.Application.DTOs;
 using Portfolio.Application.Interfaces;
-using Portfolio.Domain.Entities;
 
 namespace Portfolio.API.Endpoints
 {

@@ -25,6 +25,7 @@ namespace Portfolio.API
             // Register endpoints
             app.MapGet("/", () => "Welcome to Coleman's Portfolio API!");
             app.MapProjectEndpoints();
+            app.MapTechnologyEndpoints();
 
             app.Run();
         }

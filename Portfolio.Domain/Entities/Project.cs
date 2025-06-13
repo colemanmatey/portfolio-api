@@ -18,6 +18,14 @@ namespace Portfolio.Domain.Entities
         // Navigational properties
         public List<Technology> Technologies { get; set; }
 
+        private Project() 
+        {
+            Title = string.Empty;
+            Category = SoftwareCategory.Unassigned;
+            Status = ProjectStatus.New;
+            Technologies = new List<Technology>();
+        }
+
         public Project(string title, string? description)
         {
             Title = title;
@@ -32,19 +40,19 @@ namespace Portfolio.Domain.Entities
             Id = id;
             Title = title;
             Description = description;
-            Category = ConvertToSoftwareCategoryEnum(softwareCategory);
-            Status = ConvertToProjectStatusEnum(projectStatus);
+            Category = ToSoftwareCategoryEnum(softwareCategory);
+            Status = ToProjectStatusEnum(projectStatus);
             Technologies = new List<Technology>();
         }
 
-        public SoftwareCategory ConvertToSoftwareCategoryEnum(string? input)
+        public SoftwareCategory ToSoftwareCategoryEnum(string? input)
         {
             return Enum.TryParse<SoftwareCategory>(input, true, out var category) 
                     ? category 
                     : SoftwareCategory.Unassigned;
         }
 
-        public ProjectStatus ConvertToProjectStatusEnum(string? input)
+        public ProjectStatus ToProjectStatusEnum(string? input)
         {
             return Enum.TryParse<ProjectStatus>(input, true, out var status)
                     ? status

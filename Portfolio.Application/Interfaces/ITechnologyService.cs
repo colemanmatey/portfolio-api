@@ -11,8 +11,8 @@ namespace Portfolio.Application.Interfaces
 {
     public interface ITechnologyService
     {
-        ResultDto<ImmutableList<Technology>> GetAllTechnologies();
-        ResultDto<Technology> GetTechnologyById(int id);
+        ResultDto<ImmutableList<TechnologyDto>> GetAllTechnologies();
+        ResultDto<TechnologyDto> GetTechnologyById(int id);
         ResultDto<Technology> CreateTechnology(TechnologyDto dto);
         ResultDto<Technology> UpdateTechnology(int id, TechnologyDto dto);
         ResultDto<Technology> DeleteTechnology(int id);

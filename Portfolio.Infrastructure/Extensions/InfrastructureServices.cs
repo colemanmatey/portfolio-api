@@ -23,6 +23,7 @@ namespace Portfolio.Infrastructure.Extensions
             );
 
             services.AddScoped<IRepository<Project>, Repository<Project>>();
+            services.AddScoped<IRepository<Technology>,  Repository<Technology>>();
 
 
             return services;

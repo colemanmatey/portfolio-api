@@ -14,6 +14,7 @@ namespace Portfolio.Application.Extensions
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             services.AddScoped<IProjectService, ProjectService>();
+            services.AddScoped<ITechnologyService, TechnologyService>();
             return services;
         }
     }

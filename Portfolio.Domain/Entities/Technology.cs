@@ -10,11 +10,35 @@ namespace Portfolio.Domain.Entities
     public class Technology
     {
         public int Id { get; set; }
-        public required string Name { get; set; }
+        public string Name { get; set; }
         public TechnologyType Category { get; set; }
 
         // Navigational properties
-        public required List<SemanticVersion> Versions { get; set; }
-        public required List<Project> Projects { get; set; }
+        public List<SemanticVersion> Versions { get; set; }
+        public List<Project> Projects { get; set; }
+
+        private Technology() 
+        {
+            Name = string.Empty;
+            Category = TechnologyType.None;
+            Versions = new List<SemanticVersion>();
+            Projects = new List<Project>();
+        }
+
+        public Technology(string name, string category) 
+        { 
+            Name = name;
+            Category = ToTechnologyTypeEnum(category);
+            Versions = new List<SemanticVersion>();
+            Projects = new List<Project>();
+        }
+        
+        public TechnologyType ToTechnologyTypeEnum(string? input)
+        {
+            return Enum.TryParse<TechnologyType>(input, true, out var type)
+                    ? type
+                    : TechnologyType.None;
+        }
+
     }
 }

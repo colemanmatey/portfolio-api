@@ -25,8 +25,8 @@ namespace Portfolio.Application.Services
         public ResultDto<Project> CreateProject(ProjectDto dto)
         {
             var project = new Project(dto.Title, dto.Description);
-            project.Category = project.ConvertToSoftwareCategoryEnum(dto.Category);
-            project.Status = project.ConvertToProjectStatusEnum(dto.Status);
+            project.Category = project.ToSoftwareCategoryEnum(dto.Category);
+            project.Status = project.ToProjectStatusEnum(dto.Status);
 
             _repository.Create(project);
 
@@ -89,8 +89,8 @@ namespace Portfolio.Application.Services
 
             project.Title = dto.Title;
             project.Description = dto.Description;
-            project.Category = project.ConvertToSoftwareCategoryEnum(dto.Category);
-            project.Status = project.ConvertToProjectStatusEnum(dto.Status);
+            project.Category = project.ToSoftwareCategoryEnum(dto.Category);
+            project.Status = project.ToProjectStatusEnum(dto.Status);
             
             _repository.Update(id, project);
 
