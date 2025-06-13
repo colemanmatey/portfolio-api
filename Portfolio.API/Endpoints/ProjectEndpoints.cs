@@ -1,4 +1,4 @@
-﻿using Portfolio.Application.DTOs.Projects;
+﻿using Portfolio.Application.DTOs;
 using Portfolio.Application.Interfaces;
 
 namespace Portfolio.API.Endpoints

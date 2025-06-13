@@ -2,6 +2,7 @@
 using Portfolio.Infrastructure.Data;
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,9 +25,10 @@ namespace Portfolio.Infrastructure.Repositories
             _context.SaveChanges();
         }
 
-        public IEnumerable<T> GetAll()
+        public ImmutableList<T> GetAll()
         {
-            return _context.Set<T>().ToList();
+            var results = _context.Set<T>().ToList();
+            return results.ToImmutableList();
         }
 
         public T GetById(int id)
@@ -67,7 +69,6 @@ namespace Portfolio.Infrastructure.Repositories
             }
             _context.Remove(result);
             _context.SaveChanges();
-
         }
     }
 }

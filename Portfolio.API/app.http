@@ -15,20 +15,21 @@ Content-Type: application/json
 {
   "title": "Software magazine",
   "description": "A hub for all Developers to share their stories",
-  "category": "desktop",
-  "status": "planned"
+  "category": "Web",
+  "status": "Ongoing"
+
 }
 
 ### Update Project
-PUT {{URL}}/projects/6
+PUT {{URL}}/projects/2
 Content-Type: application/json
 {
-  "title": "Portfolio App",
+  "title": "App",
   "description": "A documentation of all my personal projects",
   "category": "Web",
   "status": "Ongoing"
 }
 
 ### Delete Project
-DELETE {{URL}}/projects/4
+DELETE {{URL}}/projects/3
 Accept: application/json
