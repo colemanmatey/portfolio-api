@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Portfolio.Domain.Entities;
+using Portfolio.Domain.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,9 @@ namespace Portfolio.Infrastructure.Data
         // Database tables
         public DbSet<Project> Projects { get; set; }
         public DbSet<Technology> Technologies { get; set; }
-        public DbSet<SemanticVersion> Versions { get; set; }
+
+        public DbSet<ProjectVersion> ProjectVersions { get; set; }
+        public DbSet<TechnologyVersion> TechnologyVersions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -28,8 +31,10 @@ namespace Portfolio.Infrastructure.Data
                 .ToTable("Project");
             modelBuilder.Entity<Technology>()
                 .ToTable("Technology");
-            modelBuilder.Entity<SemanticVersion>()
-                .ToTable("Version");
+            modelBuilder.Entity<ProjectVersion>()
+                .ToTable("ProjectVersion");
+            modelBuilder.Entity<TechnologyVersion>()
+                .ToTable("TechnologyVersion");
 
             // Relationships
             modelBuilder.Entity<Project>()
@@ -40,10 +45,23 @@ namespace Portfolio.Infrastructure.Data
                      pt => pt.HasOne<Project>().WithMany().HasForeignKey("ProjectId")
                 );
 
+            modelBuilder.Entity<Project>()
+                .HasMany(p => p.Versions)
+                .WithOne(v => v.Project)
+                .HasForeignKey(v => v.ProjectId);
+
             modelBuilder.Entity<Technology>()
                 .HasMany(t => t.Versions)
-                .WithOne(sv => sv.Technology)
-                .HasForeignKey(sv => sv.TechnologyId);
+                .WithOne(v => v.Technology)
+                .HasForeignKey(v => v.TechnologyId);
+
+
+            // Owned type definitions
+            modelBuilder.Entity<ProjectVersion>()
+                .OwnsOne(pv => pv.Version);
+
+            modelBuilder.Entity<TechnologyVersion>()
+                .OwnsOne(tv => tv.Version);
         }
     }
 }

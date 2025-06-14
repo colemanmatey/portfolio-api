@@ -41,6 +41,28 @@ namespace Portfolio.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ProjectVersion",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Version_Major = table.Column<int>(type: "int", nullable: false),
+                    Version_Minor = table.Column<int>(type: "int", nullable: false),
+                    Version_Patch = table.Column<int>(type: "int", nullable: false),
+                    ProjectId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProjectVersion", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ProjectVersion_Project_ProjectId",
+                        column: x => x.ProjectId,
+                        principalTable: "Project",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ProjectTechnology",
                 columns: table => new
                 {
@@ -65,21 +87,21 @@ namespace Portfolio.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Version",
+                name: "TechnologyVersion",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Major = table.Column<int>(type: "int", nullable: false),
-                    Minor = table.Column<int>(type: "int", nullable: false),
-                    Patch = table.Column<int>(type: "int", nullable: false),
+                    Version_Major = table.Column<int>(type: "int", nullable: false),
+                    Version_Minor = table.Column<int>(type: "int", nullable: false),
+                    Version_Patch = table.Column<int>(type: "int", nullable: false),
                     TechnologyId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Version", x => x.Id);
+                    table.PrimaryKey("PK_TechnologyVersion", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Version_Technology_TechnologyId",
+                        name: "FK_TechnologyVersion_Technology_TechnologyId",
                         column: x => x.TechnologyId,
                         principalTable: "Technology",
                         principalColumn: "Id",
@@ -92,8 +114,13 @@ namespace Portfolio.Infrastructure.Migrations
                 column: "TechnologyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Version_TechnologyId",
-                table: "Version",
+                name: "IX_ProjectVersion_ProjectId",
+                table: "ProjectVersion",
+                column: "ProjectId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TechnologyVersion_TechnologyId",
+                table: "TechnologyVersion",
                 column: "TechnologyId");
         }
 
@@ -104,7 +131,10 @@ namespace Portfolio.Infrastructure.Migrations
                 name: "ProjectTechnology");
 
             migrationBuilder.DropTable(
-                name: "Version");
+                name: "ProjectVersion");
+
+            migrationBuilder.DropTable(
+                name: "TechnologyVersion");
 
             migrationBuilder.DropTable(
                 name: "Project");

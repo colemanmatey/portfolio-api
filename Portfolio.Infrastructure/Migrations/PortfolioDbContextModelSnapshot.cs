@@ -47,7 +47,7 @@ namespace Portfolio.Infrastructure.Migrations
                     b.ToTable("Project", (string)null);
                 });
 
-            modelBuilder.Entity("Portfolio.Domain.Entities.SemanticVersion", b =>
+            modelBuilder.Entity("Portfolio.Domain.Entities.ProjectVersion", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -55,23 +55,14 @@ namespace Portfolio.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Major")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Minor")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Patch")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TechnologyId")
+                    b.Property<int>("ProjectId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TechnologyId");
+                    b.HasIndex("ProjectId");
 
-                    b.ToTable("Version", (string)null);
+                    b.ToTable("ProjectVersion", (string)null);
                 });
 
             modelBuilder.Entity("Portfolio.Domain.Entities.Technology", b =>
@@ -94,6 +85,24 @@ namespace Portfolio.Infrastructure.Migrations
                     b.ToTable("Technology", (string)null);
                 });
 
+            modelBuilder.Entity("Portfolio.Domain.Entities.TechnologyVersion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("TechnologyId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TechnologyId");
+
+                    b.ToTable("TechnologyVersion", (string)null);
+                });
+
             modelBuilder.Entity("ProjectTechnology", b =>
                 {
                     b.Property<int>("ProjectId")
@@ -109,7 +118,43 @@ namespace Portfolio.Infrastructure.Migrations
                     b.ToTable("ProjectTechnology");
                 });
 
-            modelBuilder.Entity("Portfolio.Domain.Entities.SemanticVersion", b =>
+            modelBuilder.Entity("Portfolio.Domain.Entities.ProjectVersion", b =>
+                {
+                    b.HasOne("Portfolio.Domain.Entities.Project", "Project")
+                        .WithMany("Versions")
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.OwnsOne("Portfolio.Domain.ValueObjects.SemanticVersion", "Version", b1 =>
+                        {
+                            b1.Property<int>("ProjectVersionId")
+                                .HasColumnType("int");
+
+                            b1.Property<int>("Major")
+                                .HasColumnType("int");
+
+                            b1.Property<int>("Minor")
+                                .HasColumnType("int");
+
+                            b1.Property<int>("Patch")
+                                .HasColumnType("int");
+
+                            b1.HasKey("ProjectVersionId");
+
+                            b1.ToTable("ProjectVersion");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ProjectVersionId");
+                        });
+
+                    b.Navigation("Project");
+
+                    b.Navigation("Version")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Portfolio.Domain.Entities.TechnologyVersion", b =>
                 {
                     b.HasOne("Portfolio.Domain.Entities.Technology", "Technology")
                         .WithMany("Versions")
@@ -117,7 +162,32 @@ namespace Portfolio.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.OwnsOne("Portfolio.Domain.ValueObjects.SemanticVersion", "Version", b1 =>
+                        {
+                            b1.Property<int>("TechnologyVersionId")
+                                .HasColumnType("int");
+
+                            b1.Property<int>("Major")
+                                .HasColumnType("int");
+
+                            b1.Property<int>("Minor")
+                                .HasColumnType("int");
+
+                            b1.Property<int>("Patch")
+                                .HasColumnType("int");
+
+                            b1.HasKey("TechnologyVersionId");
+
+                            b1.ToTable("TechnologyVersion");
+
+                            b1.WithOwner()
+                                .HasForeignKey("TechnologyVersionId");
+                        });
+
                     b.Navigation("Technology");
+
+                    b.Navigation("Version")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ProjectTechnology", b =>
@@ -133,6 +203,11 @@ namespace Portfolio.Infrastructure.Migrations
                         .HasForeignKey("TechnologyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Portfolio.Domain.Entities.Project", b =>
+                {
+                    b.Navigation("Versions");
                 });
 
             modelBuilder.Entity("Portfolio.Domain.Entities.Technology", b =>

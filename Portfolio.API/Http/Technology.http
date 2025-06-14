@@ -6,21 +6,23 @@ GET {{URL}}/technologies
 accept: application/json
 
 ### Get technology by id
-GET {{URL}}/technologies/1
+GET {{URL}}/technologies/2
 accept: application/json
 
 ### Create technology
 POST {{URL}}/technologies
 Content-Type: application/json
 {
-  "name": "Python",
-  "category": "Language"
+  "name": "SQL Server",
+  "category": "Database"
 }
 
 ### Update technology
-PUT {{URL}}/technology/2
+PUT {{URL}}/technologies/2
 Content-Type: application/json
 {
+  "name": "React",
+  "category": "Framework"
 }
 
 ### Delete technology

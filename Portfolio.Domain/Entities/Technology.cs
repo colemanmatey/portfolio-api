@@ -14,14 +14,14 @@ namespace Portfolio.Domain.Entities
         public TechnologyType Category { get; set; }
 
         // Navigational properties
-        public List<SemanticVersion> Versions { get; set; }
+        public List<TechnologyVersion> Versions { get; set; }
         public List<Project> Projects { get; set; }
 
         private Technology() 
         {
             Name = string.Empty;
             Category = TechnologyType.None;
-            Versions = new List<SemanticVersion>();
+            Versions = new List<TechnologyVersion>();
             Projects = new List<Project>();
         }
 
@@ -29,7 +29,7 @@ namespace Portfolio.Domain.Entities
         { 
             Name = name;
             Category = ToTechnologyTypeEnum(category);
-            Versions = new List<SemanticVersion>();
+            Versions = new List<TechnologyVersion>();
             Projects = new List<Project>();
         }
         
@@ -39,6 +39,5 @@ namespace Portfolio.Domain.Entities
                     ? type
                     : TechnologyType.None;
         }
-
     }
 }

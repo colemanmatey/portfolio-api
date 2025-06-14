@@ -14,5 +14,4 @@ namespace Portfolio.Domain.Entities
         public int TechnologyId { get; set; }
         public required Technology Technology { get; set; }
     }
-
 }
