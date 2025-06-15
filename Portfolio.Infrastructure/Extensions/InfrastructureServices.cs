@@ -22,12 +22,7 @@ namespace Portfolio.Infrastructure.Extensions
                 options.UseSqlServer(configuration.GetConnectionString("PortfolioDB"))
             );
 
-            services.AddScoped<IRepository<Project>, Repository<Project>>();
-            services.AddScoped<IRepository<Technology>,  Repository<Technology>>();
-
-            services.AddScoped<IRepository<ProjectVersion>, Repository<ProjectVersion>>();
-            services.AddScoped<IRepository<TechnologyVersion>, Repository<TechnologyVersion>>();
-
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
             return services;
         }
