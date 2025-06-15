@@ -53,8 +53,6 @@ namespace Portfolio.Application.Services
                           : "No technologies found.",
                 Data = technologyDtos
             };
-
-
         }
 
         public ResultDto<TechnologyDto> GetTechnologyById(int id)

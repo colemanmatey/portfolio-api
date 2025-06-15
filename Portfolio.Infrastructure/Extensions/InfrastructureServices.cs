@@ -25,6 +25,9 @@ namespace Portfolio.Infrastructure.Extensions
             services.AddScoped<IRepository<Project>, Repository<Project>>();
             services.AddScoped<IRepository<Technology>,  Repository<Technology>>();
 
+            services.AddScoped<IRepository<ProjectVersion>, Repository<ProjectVersion>>();
+            services.AddScoped<IRepository<TechnologyVersion>, Repository<TechnologyVersion>>();
+
 
             return services;
         }

@@ -1,0 +1,10 @@
+# For more info on HTTP files go to https://aka.ms/vs/httpfile
+@URL = https://localhost:7055
+
+### Get all technologies versions
+GET {{URL}}/technologies/versions 
+accept: application/json
+
+### Get all project versions
+GET {{URL}}/projects/versions 
+accept: application/json

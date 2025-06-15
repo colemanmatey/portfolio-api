@@ -20,10 +20,10 @@ Content-Type: application/json
 }
 
 ### Update Project
-PUT {{URL}}/projects/2
+PUT {{URL}}/projects/4
 Content-Type: application/json
 {
-  "title": "App",
+  "title": "Magazine",
   "description": "A documentation of all my personal projects",
   "category": "Web",
   "status": "Ongoing"

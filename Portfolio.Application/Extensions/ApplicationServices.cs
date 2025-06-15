@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Portfolio.Application.DTOs;
 using Portfolio.Application.Interfaces;
 using Portfolio.Application.Services;
+using Portfolio.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +17,10 @@ namespace Portfolio.Application.Extensions
         {
             services.AddScoped<IProjectService, ProjectService>();
             services.AddScoped<ITechnologyService, TechnologyService>();
+
+            services.AddScoped<IVersionService<ProjectVersion, ProjectVersionDto>, ProjectVersionService>();
+            services.AddScoped<IVersionService<TechnologyVersion, TechnologyVersionDto>, TechnologyVersionService>();
+
             return services;
         }
     }

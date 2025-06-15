@@ -1,9 +1,11 @@
-﻿using Portfolio.Application.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using Portfolio.Application.Interfaces;
 using Portfolio.Infrastructure.Data;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -29,6 +31,20 @@ namespace Portfolio.Infrastructure.Repositories
         {
             var results = _context.Set<T>().ToList();
             return results.ToImmutableList();
+        }
+
+        public ImmutableList<T> GetAll(params Expression<Func<T, object>>[] includes)
+        {
+            IQueryable<T> query = _context.Set<T>();
+
+            foreach (var include in includes)
+            {
+                query = query.Include(include);
+            }
+
+            var results = query.ToList();
+            return results.ToImmutableList();
+
         }
 
         public T GetById(int id)
