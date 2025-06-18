@@ -1,0 +1,30 @@
+# For more info on HTTP files go to https://aka.ms/vs/httpfile
+@URL = https://localhost:7055
+
+### Get all technologies
+GET {{URL}}/technologies 
+accept: application/json
+
+### Get technology by id
+GET {{URL}}/technologies/2
+accept: application/json
+
+### Create technology
+POST {{URL}}/technologies
+Content-Type: application/json
+{
+  "name": "SQL Server",
+  "category": "Database"
+}
+
+### Update technology
+PUT {{URL}}/technologies/9
+Content-Type: application/json
+{
+  "name": "ExpressJS",
+  "category": "Framework"
+}
+
+### Delete technology
+DELETE {{URL}}/technologies/9
+Accept: application/json
