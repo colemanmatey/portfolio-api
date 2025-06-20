@@ -6,10 +6,5 @@ using System.Threading.Tasks;
 
 namespace Portfolio.Application.Features.Technologies
 {
-    public class TechnologyDto
-    {
-        public int Id { get; set; }
-        public required string Name { get; set; }
-        public required string Category { get; set; }
-    }
+    public record TechnologyDto(int id, string name, string category);
 }

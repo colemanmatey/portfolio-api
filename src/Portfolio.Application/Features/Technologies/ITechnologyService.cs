@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Portfolio.Application.Common.Interfaces;
+using Portfolio.Domain.Entities.Technologies;
 using System.Collections.Immutable;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portfolio.Application.Features.Technologies
 {
-    public interface ITechnologyService
+    public interface ITechnologyService : IVersionService<TechnologyVersion>
     {
         ImmutableList<TechnologyDto> GetAllTechnologies();
         TechnologyDto GetTechnologyById(int id);

@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Portfolio.Application.Common.Interfaces;
+using Portfolio.Domain.Entities.Projects;
 using System.Collections.Immutable;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portfolio.Application.Features.Projects
 {
-    public interface IProjectService
+    public interface IProjectService : IVersionService<ProjectVersion>
     {
         ImmutableList<ProjectDto> GetAllProjects();
         ProjectDto GetProjectById(int id);

@@ -2,7 +2,7 @@
 @URL = https://localhost:7055
 
 ### Get all technologies versions
-GET {{URL}}/technologies/versions 
+GET {{URL}}/technologies/versions/all
 accept: application/json
 
 ### Create technology version
@@ -15,7 +15,7 @@ Content-Type: application/json
 }
 
 ### Get all project versions
-GET {{URL}}/projects/versions 
+GET {{URL}}/projects/versions/all
 accept: application/json
 
 ### Create project version
