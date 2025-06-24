@@ -5,6 +5,10 @@
 GET {{URL}}/technologies/versions/all
 accept: application/json
 
+### Get all versions by for a technology
+GET {{URL}}/technologies/1/versions
+accept: application/json
+
 ### Create technology version
 POST {{URL}}/technologies/1/version
 Content-Type: application/json
@@ -16,6 +20,10 @@ Content-Type: application/json
 
 ### Get all project versions
 GET {{URL}}/projects/versions/all
+accept: application/json
+
+### Get all versions by for a project
+GET {{URL}}/projects/1/versions
 accept: application/json
 
 ### Create project version

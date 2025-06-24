@@ -88,9 +88,14 @@ namespace Portfolio.Application.Features.Technologies
             .ToImmutableList();
         }
 
-        public VersionDto GetVersionById(int id)
+        public ImmutableList<VersionDto> GetVersionsById(int id)
         {
-            throw new NotImplementedException();
+            var versions = _versionRepo.GetAll(tv => tv.Technology);
+
+            return versions.Where(v => v.TechnologyId == id)          
+                .Select(tv => new VersionDto(tv.Technology.Name, tv.Version.ToString())
+            )
+            .ToImmutableList();
         }
     }
 }

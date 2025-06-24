@@ -1,8 +1,9 @@
-﻿using Portfolio.Domain.ValueObjects;
+﻿using Portfolio.Domain.Interfaces;
+using Portfolio.Domain.ValueObjects;
 
 namespace Portfolio.Domain.Entities.Projects
 {
-    public class ProjectVersion
+    public class ProjectVersion : IHasId
     {
         public int Id { get; set; }
         public SemanticVersion Version { get; set; }

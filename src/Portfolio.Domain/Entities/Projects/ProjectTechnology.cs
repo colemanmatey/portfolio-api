@@ -4,7 +4,7 @@ namespace Portfolio.Domain.Entities.Projects
 {
     public class ProjectTechnology
     {
-        public int ProjectId { get; set; }
+        public int ProjectId { get; }
         public required Project Project { get; set; }
 
         public int TechnologyId { get; set; }

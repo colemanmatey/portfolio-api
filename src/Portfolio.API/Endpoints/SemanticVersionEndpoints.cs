@@ -15,11 +15,24 @@ namespace Portfolio.API.Endpoints
             var technologyVersions = app.MapGroup("/technologies");
 
             // Get all tech versions
-            technologyVersions.MapGet("/versions/all", (IProjectService service) =>
+            technologyVersions.MapGet("/versions/all", (ITechnologyService service) =>
             {
                 try
                 {
                     var versions = service.GetAllVersions();
+                    return Results.Ok(versions);
+                }
+                catch (Exception ex)
+                {
+                    return Results.BadRequest(new { message = $"{ex.Message}" });
+                }
+            });
+
+            technologyVersions.MapGet("/{id:int}/versions", (ITechnologyService service, int id) =>
+            {
+                try
+                {
+                    var versions = service.GetVersionsById(id);
                     return Results.Ok(versions);
                 }
                 catch (Exception ex)
@@ -31,12 +44,24 @@ namespace Portfolio.API.Endpoints
             // Project versions
             var projectVersions = app.MapGroup("/projects");
 
-
-            projectVersions.MapGet("/versions/all", (ITechnologyService service) =>
+            projectVersions.MapGet("/versions/all", (IProjectService service) =>
             {
                 try
                 {
                     var versions = service.GetAllVersions();
+                    return Results.Ok(versions);
+                }
+                catch (Exception ex)
+                {
+                    return Results.BadRequest(new { message = $"{ex.Message}" });
+                }
+            });
+
+            projectVersions.MapGet("/{id:int}/versions", (IProjectService service, int id) =>
+            {
+                try
+                {
+                    var versions = service.GetVersionsById(id);
                     return Results.Ok(versions);
                 }
                 catch (Exception ex)

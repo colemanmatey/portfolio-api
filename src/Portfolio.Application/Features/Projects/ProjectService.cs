@@ -104,12 +104,18 @@ namespace Portfolio.Application.Features.Projects
                     pv.Project.Title, 
                     pv.Version.ToString()
                 )
-            ).ToImmutableList();
+            )
+            .ToImmutableList();
         }
 
-        public VersionDto GetVersionById(int id)
+        public ImmutableList<VersionDto> GetVersionsById(int id)
         {
-            throw new NotImplementedException();
+            var versions = _versionRepo.GetAll(pv => pv.Project);
+
+            return versions.Where(v => v.ProjectId == id)
+                .Select(tv => new VersionDto(tv.Project.Title, tv.Version.ToString())
+            )
+            .ToImmutableList();
         }
     }
 }

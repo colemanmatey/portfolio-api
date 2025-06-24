@@ -14,7 +14,7 @@ namespace Portfolio.Domain.ValueObjects
 
         public override string ToString()
         {
-            return $"v{Major}.{Minor}.{Patch}";
+            return $"{Major}.{Minor}.{Patch}";
         }
     }
 }

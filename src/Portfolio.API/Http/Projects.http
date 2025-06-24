@@ -13,10 +13,10 @@ accept: application/json
 POST {{URL}}/projects
 Content-Type: application/json
 {
-  "title": "Software magazine",
-  "description": "A hub for all Developers to share their stories",
-  "category": "Web",
-  "status": "Ongoing"
+  "title": "Budget app",
+  "description": "A hub for all users to manage their money",
+  "category": "Mobile",
+  "status": "Planned"
 }
 
 ### Update Project

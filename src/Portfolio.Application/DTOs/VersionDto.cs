@@ -8,4 +8,5 @@ using System.Threading.Tasks;
 namespace Portfolio.Application.DTOs
 {
     public record VersionDto(string name, string version);
+    public record VersionCreateDto(int major, int minor, int patch);
 }

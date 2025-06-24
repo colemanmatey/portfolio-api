@@ -1,10 +1,11 @@
 ﻿using Portfolio.Domain.Entities.Technologies;
 using Portfolio.Domain.Enums;
+using Portfolio.Domain.Interfaces;
 
 
 namespace Portfolio.Domain.Entities.Projects
 {
-    public class Project
+    public class Project : IHasId
     {
         public int Id { get; set; }
         public string Title { get; set; }

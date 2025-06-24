@@ -6,6 +6,6 @@ namespace Portfolio.Application.Common.Interfaces
     public interface IVersionService<T> where T : class
     {
         ImmutableList<VersionDto> GetAllVersions();
-        VersionDto GetVersionById(int id);
+        ImmutableList<VersionDto> GetVersionsById(int id);
     }
 }

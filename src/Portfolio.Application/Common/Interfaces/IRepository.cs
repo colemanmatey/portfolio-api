@@ -1,9 +1,10 @@
-﻿using System.Collections.Immutable;
+﻿using Portfolio.Domain.Interfaces;
+using System.Collections.Immutable;
 using System.Linq.Expressions;
 
 namespace Portfolio.Application.Common.Interfaces
 {
-    public interface IRepository<T> where T : class
+    public interface IRepository<T> where T : class, IHasId
     {
         T GetById(int id);
         ImmutableList<T> GetAll();

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Portfolio.Application.Common.Interfaces;
+using Portfolio.Domain.Interfaces;
 using Portfolio.Infrastructure.Data;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Portfolio.Infrastructure.Repositories
 {
-    public class Repository<T> : IRepository<T> where T : class
+    public class Repository<T> : IRepository<T> where T : class, IHasId
     {
         protected readonly PortfolioDbContext _context;
 
@@ -44,7 +45,6 @@ namespace Portfolio.Infrastructure.Repositories
 
             var results = query.ToList();
             return results.ToImmutableList();
-
         }
 
         public T GetById(int id)
