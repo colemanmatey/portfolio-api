@@ -13,62 +13,66 @@ namespace Portfolio.API.Endpoints
         {
             // Technology versions
             var technologyVersions = app.MapGroup("/technologies");
-
-            // Get all tech versions
-            technologyVersions.MapGet("/versions/all", (ITechnologyService service) =>
-            {
-                try
-                {
-                    var versions = service.GetAllVersions();
-                    return Results.Ok(versions);
-                }
-                catch (Exception ex)
-                {
-                    return Results.BadRequest(new { message = $"{ex.Message}" });
-                }
-            });
-
-            technologyVersions.MapGet("/{id:int}/versions", (ITechnologyService service, int id) =>
-            {
-                try
-                {
-                    var versions = service.GetVersionsById(id);
-                    return Results.Ok(versions);
-                }
-                catch (Exception ex)
-                {
-                    return Results.BadRequest(new { message = $"{ex}" });
-                }
-            });
+            technologyVersions.MapGet("/versions/all", GetAllTechVersions);
+            technologyVersions.MapGet("/{id:int}/versions", GetAllTechVersionsById);
 
             // Project versions
             var projectVersions = app.MapGroup("/projects");
+            projectVersions.MapGet("/versions/all", GetAllProjectVersions);
+            projectVersions.MapGet("/{id:int}/versions", GetAllProjectVersionsById);
+        }
 
-            projectVersions.MapGet("/versions/all", (IProjectService service) =>
+        private static IResult GetAllTechVersions (ITechnologyService service)
+        {
+            try
             {
-                try
-                {
-                    var versions = service.GetAllVersions();
-                    return Results.Ok(versions);
-                }
-                catch (Exception ex)
-                {
-                    return Results.BadRequest(new { message = $"{ex.Message}" });
-                }
-            });
+                var versions = service.GetAllVersions();
+                return Results.Ok(versions);
+            }
+            catch (Exception ex)
+            {
+                return Results.BadRequest(new { message = $"{ex.Message}" });
+            }
+        }
 
-            projectVersions.MapGet("/{id:int}/versions", (IProjectService service, int id) =>
+        private static IResult GetAllTechVersionsById(ITechnologyService service, int id)
+        {
+            try
             {
-                try
-                {
-                    var versions = service.GetVersionsById(id);
-                    return Results.Ok(versions);
-                }
-                catch (Exception ex)
-                {
-                    return Results.BadRequest(new { message = $"{ex}" });
-                }
-            });
+                var versions = service.GetVersionsById(id);
+                return Results.Ok(versions);
+            }
+            catch (Exception ex)
+            {
+                return Results.BadRequest(new { message = $"{ex}" });
+            }
+        }
+
+        // Project versions
+        private static IResult GetAllProjectVersions(IProjectService service)
+        {
+            try
+            {
+                var versions = service.GetAllVersions();
+                return Results.Ok(versions);
+            }
+            catch (Exception ex)
+            {
+                return Results.BadRequest(new { message = $"{ex.Message}" });
+            }
+        }
+
+        private static IResult GetAllProjectVersionsById(IProjectService service, int id)
+        {
+            try
+            {
+                var versions = service.GetVersionsById(id);
+                return Results.Ok(versions);
+            }
+            catch (Exception ex)
+            {
+                return Results.BadRequest(new { message = $"{ex}" });
+            }
         }
     }
 }
