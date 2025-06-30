@@ -3,6 +3,7 @@ using Portfolio.Application.DTOs;
 using Portfolio.Domain.Entities.Projects;
 using Portfolio.Domain.Entities.Technologies;
 using Portfolio.Domain.ValueObjects;
+using System;
 using System.Collections.Immutable;
 
 namespace Portfolio.Application.Features.Projects
@@ -105,7 +106,6 @@ namespace Portfolio.Application.Features.Projects
                     name: g.Key,
                     versions: g
                         .Select(v => v.ToString())
-                        .Distinct()
                         .ToList()
                 )
             );
@@ -126,13 +126,13 @@ namespace Portfolio.Application.Features.Projects
             );
         }
 
-        public string AddNewVersion(int id, VersionCreateDto dto)
+        public void AddNewVersion(int id, VersionCreateDto dto)
         {
             var project = _projectRepo.GetById(id);
 
             if (project == null)
             {
-                return $"Project with ID {id} not found.";
+                throw new Exception($"Project with ID {id} not found.");
             }
 
             var version = new ProjectVersion
@@ -147,7 +147,16 @@ namespace Portfolio.Application.Features.Projects
             };
 
             _versionRepo.Create(version);
-            return $"New version added to Project: {id}";
+        }
+
+        public void DeleteVersion(int id, int versionId)
+        {
+            var project = _projectRepo.GetById(id);
+
+            if (project != null && project != null)
+            {
+                _versionRepo.Delete(versionId);
+            }
         }
     }
 }

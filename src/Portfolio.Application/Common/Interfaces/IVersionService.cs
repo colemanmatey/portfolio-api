@@ -8,6 +8,7 @@ namespace Portfolio.Application.Common.Interfaces
         ImmutableList<VersionDto> GetAllVersions();
         VersionDto GetVersionsById(int id);
 
-        string AddNewVersion(int id, VersionCreateDto dto);
+        void AddNewVersion(int id, VersionCreateDto dto);
+        void DeleteVersion(int id, int versionId);
     }
 }

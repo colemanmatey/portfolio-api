@@ -17,6 +17,10 @@ Content-Type: application/json
   "minor": 1,
   "patch": 0
 }
+
+### Delete technology version
+DELETE {{URL}}/technologies/1/versions/3
+accept: application/json
  
 ### Get all project versions
 GET {{URL}}/projects/versions/all
@@ -34,3 +38,7 @@ Content-Type: application/json
   "minor": 1,
   "patch": 0
 }
+
+### Delete project version
+DELETE {{URL}}/projects/1/versions/2
+accept: application/json

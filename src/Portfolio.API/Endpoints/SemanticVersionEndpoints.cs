@@ -17,13 +17,14 @@ namespace Portfolio.API.Endpoints
             technologyVersions.MapGet("/versions/all", GetAllTechVersions);
             technologyVersions.MapGet("/{id:int}/versions", GetAllTechVersionsById);
             technologyVersions.MapPost("/{id:int}/versions", AddVersionToTech);
+            technologyVersions.MapDelete("/{id:int}/versions/{versionId:int}", DeleteTechVersion);
                 
             // Project versions
             var projectVersions = app.MapGroup("/projects");
             projectVersions.MapGet("/versions/all", GetAllProjectVersions);
             projectVersions.MapGet("/{id:int}/versions", GetAllProjectVersionsById);
             projectVersions.MapPost("/{id:int}/versions", AddVersionToProject);
-
+            projectVersions.MapDelete("/{id:int}/versions/{versionId:int}", DeleteProjectVersion);
         }
 
         // Technology versions
@@ -57,9 +58,22 @@ namespace Portfolio.API.Endpoints
         {
             try
             {
-                var version = service.AddNewVersion(id, dto);
-                return Results.Ok(version);
+                service.AddNewVersion(id, dto);
+                return Results.Ok(new { message = "New technology version has been added!" });
    
+            }
+            catch (Exception ex)
+            {
+                return Results.BadRequest(new { message = $"{ex}" });
+            }
+        }
+
+        private static IResult DeleteTechVersion(ITechnologyService service, int id, int versionId)
+        {
+            try
+            {
+                service.DeleteVersion(id, versionId);
+                return Results.Ok(new { message = "Technology Version deleted successfully" });
             }
             catch (Exception ex)
             {
@@ -99,9 +113,21 @@ namespace Portfolio.API.Endpoints
 
             try
             {
-                var version = service.AddNewVersion(id, dto);
-                return Results.Ok(version);
+                service.AddNewVersion(id, dto);
+                return Results.Ok(new { message = "New project version has been added!" });
 
+            }
+            catch (Exception ex)
+            {
+                return Results.BadRequest(new { message = $"{ex}" });
+            }
+        }
+        private static IResult DeleteProjectVersion(IProjectService service, int id, int versionId)
+        {
+            try
+            {
+                service.DeleteVersion(id, versionId);
+                return Results.Ok(new { message = "Project Version deleted successfully" });
             }
             catch (Exception ex)
             {

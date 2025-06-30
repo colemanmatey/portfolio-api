@@ -84,7 +84,6 @@ namespace Portfolio.Application.Features.Technologies
                     name: g.Key,
                     versions: g
                         .Select(v => v.Version.ToString())
-                        .Distinct()
                         .ToList()
                 )
             );
@@ -105,13 +104,13 @@ namespace Portfolio.Application.Features.Technologies
             );
         }
 
-        public string AddNewVersion(int id, VersionCreateDto dto)
+        public void AddNewVersion(int id, VersionCreateDto dto)
         {
             var technology = _techRepo.GetById(id);
 
             if (technology == null)
             {
-                return $"Technology with ID {id} not found.";
+                throw new Exception($"Technology with ID {id} not found.");
             }
 
             var version = new TechnologyVersion
@@ -126,8 +125,17 @@ namespace Portfolio.Application.Features.Technologies
             };
 
             _versionRepo.Create(version);
-            return $"New version added to Technology: {id}";
         }
 
+        public void DeleteVersion(int id, int versionId)
+        {
+            var technology = _techRepo.GetById(id);
+            var version = _versionRepo.GetById(versionId);
+
+            if (technology != null && version != null)
+            {
+                _versionRepo.Delete(versionId);
+            }
+        }
     }
 }
