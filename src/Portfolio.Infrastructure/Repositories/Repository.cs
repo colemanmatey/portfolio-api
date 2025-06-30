@@ -52,7 +52,7 @@ namespace Portfolio.Infrastructure.Repositories
             T? result = _context.Set<T>().Find(id);
             if (result == null) 
             { 
-               throw new KeyNotFoundException("Project not found");
+               throw new KeyNotFoundException("Resource not found");
             }
             return result;
         }

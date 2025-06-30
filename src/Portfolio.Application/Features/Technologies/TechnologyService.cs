@@ -1,6 +1,7 @@
 ﻿using Portfolio.Application.Common.Interfaces;
 using Portfolio.Application.DTOs;
 using Portfolio.Domain.Entities.Technologies;
+using Portfolio.Domain.ValueObjects;
 using System.Collections.Immutable;
 namespace Portfolio.Application.Features.Technologies
 {
@@ -77,25 +78,56 @@ namespace Portfolio.Application.Features.Technologies
 
         public ImmutableList<VersionDto> GetAllVersions()
         {
-            var versions = _versionRepo.GetAll(tv => tv.Technology);
-
-            return versions.Select(
-                tv => new VersionDto(
-                    tv.Technology.Name, 
-                    tv.Version.ToString()
+            var versions = _versionRepo.GetAll(tv => tv.Technology)
+            .GroupBy(tv => tv.Technology.Name)
+            .Select(g => new VersionDto(
+                    name: g.Key,
+                    versions: g
+                        .Select(v => v.Version.ToString())
+                        .Distinct()
+                        .ToList()
                 )
-            )
-            .ToImmutableList();
+            );
+
+            return versions.ToImmutableList();
         }
 
-        public ImmutableList<VersionDto> GetVersionsById(int id)
+        public VersionDto GetVersionsById(int id)
         {
-            var versions = _versionRepo.GetAll(tv => tv.Technology);
+            var versions = _versionRepo.GetAll(tv => tv.Technology)
+                                .Where(v => v.TechnologyId == id);
 
-            return versions.Where(v => v.TechnologyId == id)          
-                .Select(tv => new VersionDto(tv.Technology.Name, tv.Version.ToString())
-            )
-            .ToImmutableList();
+            var technology = versions.FirstOrDefault();
+
+            return new VersionDto(
+                name: technology?.Technology?.Name ?? "Technology not found",
+                versions: versions.Select(v => v.Version.ToString()).ToList()
+            );
         }
+
+        public string AddNewVersion(int id, VersionCreateDto dto)
+        {
+            var technology = _techRepo.GetById(id);
+
+            if (technology == null)
+            {
+                return $"Technology with ID {id} not found.";
+            }
+
+            var version = new TechnologyVersion
+            {
+                TechnologyId = id,
+                Version = new SemanticVersion
+                {
+                    Major = dto.major,
+                    Minor = dto.minor,
+                    Patch = dto.patch
+                }
+            };
+
+            _versionRepo.Create(version);
+            return $"New version added to Technology: {id}";
+        }
+
     }
 }

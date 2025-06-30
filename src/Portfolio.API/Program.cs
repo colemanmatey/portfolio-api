@@ -20,7 +20,18 @@ namespace Portfolio.API
             builder.Services.AddInfrastructureServices(builder.Configuration);
             builder.Services.AddApplicationServices();
 
+            // Register Swagger
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
+
             var app = builder.Build();
+
+            // Configure Http request pipeline
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI();
+            }
 
             // Register endpoints
             app.MapGet("/", () => "Welcome to Coleman's Portfolio API!");

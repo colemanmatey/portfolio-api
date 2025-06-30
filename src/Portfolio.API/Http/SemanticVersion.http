@@ -10,14 +10,14 @@ GET {{URL}}/technologies/1/versions
 accept: application/json
 
 ### Create technology version
-POST {{URL}}/technologies/1/version
+POST {{URL}}/technologies/1/versions
 Content-Type: application/json
 {
   "major": 0,
   "minor": 1,
   "patch": 0
 }
-
+ 
 ### Get all project versions
 GET {{URL}}/projects/versions/all
 accept: application/json
@@ -27,7 +27,7 @@ GET {{URL}}/projects/1/versions
 accept: application/json
 
 ### Create project version
-POST {{URL}}/projects/1/version
+POST {{URL}}/projects/1/versions
 Content-Type: application/json
 {
   "major": 0,

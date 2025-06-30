@@ -7,6 +7,6 @@ using System.Threading.Tasks;
 
 namespace Portfolio.Application.DTOs
 {
-    public record VersionDto(string name, string version);
+    public record VersionDto(string name, List<string> versions);
     public record VersionCreateDto(int major, int minor, int patch);
 }

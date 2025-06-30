@@ -1,6 +1,8 @@
 ﻿using Portfolio.Application.Common.Interfaces;
 using Portfolio.Application.DTOs;
 using Portfolio.Domain.Entities.Projects;
+using Portfolio.Domain.Entities.Technologies;
+using Portfolio.Domain.ValueObjects;
 using System.Collections.Immutable;
 
 namespace Portfolio.Application.Features.Projects
@@ -97,25 +99,55 @@ namespace Portfolio.Application.Features.Projects
 
         public ImmutableList<VersionDto> GetAllVersions()
         {
-            var versions = _versionRepo.GetAll(pv => pv.Project);
-
-            return versions.Select(
-                pv => new VersionDto(
-                    pv.Project.Title, 
-                    pv.Version.ToString()
+            var versions = _versionRepo.GetAll(pv => pv.Project)
+            .GroupBy(pv => pv.Project.Title)
+            .Select(g => new VersionDto(
+                    name: g.Key,
+                    versions: g
+                        .Select(v => v.ToString())
+                        .Distinct()
+                        .ToList()
                 )
-            )
-            .ToImmutableList();
+            );
+
+            return versions.ToImmutableList();
         }
 
-        public ImmutableList<VersionDto> GetVersionsById(int id)
+        public VersionDto GetVersionsById(int id)
         {
-            var versions = _versionRepo.GetAll(pv => pv.Project);
+            var versions = _versionRepo.GetAll(pv => pv.Project)
+                                .Where(v => v.ProjectId == id);
 
-            return versions.Where(v => v.ProjectId == id)
-                .Select(tv => new VersionDto(tv.Project.Title, tv.Version.ToString())
-            )
-            .ToImmutableList();
+            var project = versions.FirstOrDefault();
+
+            return new VersionDto(
+                name: project?.Project?.Title ?? "Project not found",
+                versions: versions.Select(v => v.Version.ToString()).ToList()
+            );
+        }
+
+        public string AddNewVersion(int id, VersionCreateDto dto)
+        {
+            var project = _projectRepo.GetById(id);
+
+            if (project == null)
+            {
+                return $"Project with ID {id} not found.";
+            }
+
+            var version = new ProjectVersion
+            {
+                ProjectId = id,
+                Version = new SemanticVersion
+                {
+                    Major = dto.major,
+                    Minor = dto.minor,
+                    Patch = dto.patch
+                }
+            };
+
+            _versionRepo.Create(version);
+            return $"New version added to Project: {id}";
         }
     }
 }

@@ -6,7 +6,7 @@ GET {{URL}}/technologies
 accept: application/json
 
 ### Get technology by id
-GET {{URL}}/technologies/2
+GET {{URL}}/technologies/1
 accept: application/json
 
 ### Create technology
@@ -18,7 +18,7 @@ Content-Type: application/json
 }
 
 ### Update technology
-PUT {{URL}}/technologies/9
+PUT {{URL}}/technologies/1
 Content-Type: application/json
 {
   "name": "ExpressJS",
@@ -26,5 +26,5 @@ Content-Type: application/json
 }
 
 ### Delete technology
-DELETE {{URL}}/technologies/9
+DELETE {{URL}}/technologies/1
 Accept: application/json
