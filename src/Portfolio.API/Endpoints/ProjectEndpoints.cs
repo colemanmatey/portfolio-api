@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+
 using Portfolio.Application.Features.Projects;
 
 namespace Portfolio.API.Endpoints;
@@ -8,7 +9,7 @@ public static class ProjectEndpoints
     public static void MapProjectEndpoints(this WebApplication app)
     {
         // Project endpoints
-        var projects = app.MapGroup("/projects");
+        var projects = app.MapGroup("/api/projects");
 
         projects.MapGet("/", GetAllProjects);
         projects.MapPost("/", CreateProject);

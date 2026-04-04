@@ -2,15 +2,15 @@
 @URL = https://localhost:7055
 
 ### Get all projects
-GET {{URL}}/projects 
+GET {{URL}}/api/projects 
 accept: application/json
 
 ### Get project by id
-GET {{URL}}/projects/1
+GET {{URL}}/api/projects/1
 accept: application/json
 
 ### Create project
-POST {{URL}}/projects
+POST {{URL}}/api/projects
 Content-Type: application/json
 {
   "title": "Budget app",
@@ -20,7 +20,7 @@ Content-Type: application/json
 }
 
 ### Update Project
-PUT {{URL}}/projects/2
+PUT {{URL}}/api/projects/2
 Content-Type: application/json
 {
   "title": "Magazine",
@@ -30,5 +30,5 @@ Content-Type: application/json
 }
 
 ### Delete Project
-DELETE {{URL}}/projects/4
+DELETE {{URL}}/api/projects/4
 Accept: application/json

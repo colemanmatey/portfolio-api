@@ -2,15 +2,15 @@
 @URL = https://localhost:7055
 
 ### Get all technologies versions
-GET {{URL}}/technologies/versions/all
+GET {{URL}}/api/technologies/versions/all
 accept: application/json
 
 ### Get all versions by for a technology
-GET {{URL}}/technologies/1/versions
+GET {{URL}}/api/technologies/1/versions
 accept: application/json
 
 ### Create technology version
-POST {{URL}}/technologies/1/versions
+POST {{URL}}/api/technologies/1/versions
 Content-Type: application/json
 {
   "major": 0,
@@ -19,19 +19,19 @@ Content-Type: application/json
 }
 
 ### Delete technology version
-DELETE {{URL}}/technologies/1/versions/3
+DELETE {{URL}}/api/technologies/1/versions/3
 accept: application/json
  
 ### Get all project versions
-GET {{URL}}/projects/versions/all
+GET {{URL}}/api/projects/versions/all
 accept: application/json
 
 ### Get all versions by for a project
-GET {{URL}}/projects/1/versions
+GET {{URL}}/api/projects/1/versions
 accept: application/json
 
 ### Create project version
-POST {{URL}}/projects/1/versions
+POST {{URL}}/api/projects/1/versions
 Content-Type: application/json
 {
   "major": 0,
@@ -40,5 +40,5 @@ Content-Type: application/json
 }
 
 ### Delete project version
-DELETE {{URL}}/projects/1/versions/2
+DELETE {{URL}}/api/projects/1/versions/2
 accept: application/json

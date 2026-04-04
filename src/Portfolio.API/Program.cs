@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using Portfolio.API.Endpoints;
 using Portfolio.Application.Extensions;
 using Portfolio.Infrastructure.Extensions;
@@ -34,7 +35,7 @@ namespace Portfolio.API
             }
 
             // Register endpoints
-            app.MapGet("/", () => "Welcome to Coleman's Portfolio API!");
+            app.MapGet("/", () => { return Results.Redirect("/swagger");});
             app.MapProjectEndpoints();
             app.MapTechnologyEndpoints();
             app.MapSemanticVersionEndpoints();
