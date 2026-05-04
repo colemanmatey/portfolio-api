@@ -35,7 +35,7 @@ namespace Portfolio.API
             }
 
             // Register endpoints
-            app.MapGet("/", () => { return Results.Redirect("/swagger");});
+            app.MapGet("/", () => { return "Welcome to Coleman's Portfolio API project";});
             app.MapProjectEndpoints();
             app.MapTechnologyEndpoints();
             app.MapSemanticVersionEndpoints();
