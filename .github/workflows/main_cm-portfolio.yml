@@ -21,13 +21,16 @@ jobs:
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '10.x'
+          dotnet-version: '9.x'
+
+      - name: Restore
+        run: dotnet restore src/Portfolio.API/Portfolio.API.csproj
 
       - name: Build with dotnet
         run: dotnet build --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp"
+        run: dotnet publish src/Portfolio.API/Portfolio.API.csproj -c Release -o "${{env.DOTNET_ROOT}}/myapp"
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
@@ -44,6 +47,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: .net-app
+          path: myapp
       
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
@@ -51,5 +55,5 @@ jobs:
         with:
           app-name: 'cm-portfolio'
           slot-name: 'Production'
-          package: .
+          package: myapp
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_D126F62D0A3D4996B170009E27F928AB }}

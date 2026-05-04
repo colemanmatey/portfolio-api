@@ -7,7 +7,7 @@ namespace Portfolio.API.Endpoints
     {
         public static void MapTechnologyEndpoints(this WebApplication app)
         {
-            var technologies = app.MapGroup("/technologies");
+            var technologies = app.MapGroup("/api/technologies");
 
             technologies.MapGet("/", GetAllTechnologies);
             technologies.MapPost("/", CreateTechnology);
