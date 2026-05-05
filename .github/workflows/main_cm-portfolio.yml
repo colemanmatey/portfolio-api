@@ -79,9 +79,7 @@ jobs:
 
       # Run migrations BEFORE deploying new code
       - name: Run EF Core migrations
-        env:
-          ConnectionStrings__PortfolioDB: ${{ secrets.DB_CONNECTION_STRING }}
-        run: dotnet ef database update --project src/Portfolio.Infrastructure --startup-project src/Portfolio.API
+        run: dotnet ef database update --project src/Portfolio.Infrastructure --startup-project src/Portfolio.API --connection "${{ secrets.DB_CONNECTION_STRING }}"
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
