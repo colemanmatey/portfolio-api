@@ -49,10 +49,6 @@ jobs:
       id-token: write
       contents: read
 
-    env:
-      # Inject your DB connection string securely
-      ConnectionStrings__PortfolioDB: ${{ secrets.DB_CONNECTION_STRING }}
-
     steps:
       - name: Checkout (needed for EF CLI)
         uses: actions/checkout@v4
@@ -83,6 +79,8 @@ jobs:
 
       # Run migrations BEFORE deploying new code
       - name: Run EF Core migrations
+        env:
+          ConnectionStrings__PortfolioDB: ${{ secrets.DB_CONNECTION_STRING }}
         run: dotnet ef database update --project src/Portfolio.Infrastructure --startup-project src/Portfolio.API
 
       - name: Deploy to Azure Web App
