@@ -77,16 +77,29 @@ jobs:
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
+      - name: Debug Azure connection string
+        shell: pwsh
+        run: |
+          az webapp config connection-string list `
+            --name cm-portfolio `
+            --resource-group APIs
+
       - name: Get connection string from Azure
-        id: get_conn
+        shell: pwsh
         run: |
           $conn = az webapp config connection-string list `
             --name cm-portfolio `
             --resource-group APIs `
-            --query "[?name=='PortfolioDB'].connectionString" `
+            --query "[?name=='PortfolioDB'].connectionString | [0]" `
             -o tsv
 
-          echo "DB_CONNECTION_STRING=$conn" >> $env:GITHUB_ENV
+          if ([string]::IsNullOrEmpty($conn)) {
+            Write-Error "Connection string is EMPTY or NOT FOUND"
+            exit 1
+          }
+
+        "DB_CONNECTION_STRING=$conn" | Out-File -FilePath $env:GITHUB_ENV -Append
+
 
       - name: Run EF Core migrations
         run: dotnet ef database update --project src/Portfolio.Infrastructure --startup-project src/Portfolio.API --connection "$env:DB_CONNECTION_STRING"
