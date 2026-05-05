@@ -82,7 +82,7 @@ jobs:
         run: |
           $conn = az webapp config connection-string list `
             --name cm-portfolio `
-            --resource-group <YOUR_RESOURCE_GROUP> `
+            --resource-group APIs `
             --query "[?name=='PortfolioDB'].connectionString" `
             -o tsv
 
