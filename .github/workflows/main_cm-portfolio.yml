@@ -98,11 +98,15 @@ jobs:
             exit 1
           }
 
-        "DB_CONNECTION_STRING=$conn" | Out-File -FilePath $env:GITHUB_ENV -Append
-
+          "DB_CONNECTION_STRING=$conn" | Out-File -FilePath $env:GITHUB_ENV -Append
 
       - name: Run EF Core migrations
-        run: dotnet ef database update --project src/Portfolio.Infrastructure --startup-project src/Portfolio.API --connection "$env:DB_CONNECTION_STRING"
+        shell: pwsh
+        run: |
+          dotnet ef database update `
+            --project src/Portfolio.Infrastructure `
+            --startup-project src/Portfolio.API `
+            --connection "$env:DB_CONNECTION_STRING"
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
