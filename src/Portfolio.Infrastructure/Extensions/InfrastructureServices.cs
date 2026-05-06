@@ -19,7 +19,13 @@ namespace Portfolio.Infrastructure.Extensions
         {
             // Set up database connection
             services.AddDbContext<PortfolioDbContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("PortfolioDB"))
+                options.UseSqlServer(configuration.GetConnectionString("PortfolioDB"), sqlOptions =>
+                    sqlOptions.EnableRetryOnFailure(
+                        maxRetryCount: 5,
+                        maxRetryDelay: TimeSpan.FromSeconds(10),
+                        errorNumbersToAdd: null
+                    )
+                )
             );
 
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
