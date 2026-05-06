@@ -20,20 +20,24 @@ namespace Portfolio.Application.Features.Projects
         }
 
         // Get all projects
-        public ImmutableList<ProjectDto> GetAllProjects()
+        public IEnumerable<ProjectDto> GetProjects(string? category, string? status)
         {
             var projects = _projectRepo.GetAll();
-
-            var projectDtos = projects.Select(project => new ProjectDto(
-                project.Id,
-                project.Title,
-                project.Description,
-                project.Category.ToString(),
-                project.Status.ToString()
-            ))
-            .ToImmutableList();
-
-            return projectDtos;
+            if (!string.IsNullOrEmpty(category))
+            {
+                projects = projects.Where(p => p.Category.ToString().Equals(category, StringComparison.OrdinalIgnoreCase));
+            }
+            if (!string.IsNullOrEmpty(status))
+            {
+                projects = projects.Where(p => p.Status.ToString().Equals(status, StringComparison.OrdinalIgnoreCase));
+            }
+            return projects.Select(p => new ProjectDto(
+                p.Id,
+                p.Title,
+                p.Description,
+                p.Category.ToString(),
+                p.Status.ToString()
+            ));
         }
 
         // Get project by ID

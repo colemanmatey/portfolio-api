@@ -11,22 +11,23 @@ public static class ProjectEndpoints
         // Project endpoints
         var projects = app.MapGroup("/api/projects");
 
-        projects.MapGet("/", GetAllProjects);
+        projects.MapGet("/", GetProjects);
         projects.MapPost("/", CreateProject);
         projects.MapGet("/{id:int}", GetProjectById);
         projects.MapPut("/{id:int}", UpdateProject);
         projects.MapDelete("/{id:int}", DeleteProject);
     }
 
-    private static IResult GetAllProjects(IProjectService service)
+    private static IResult GetProjects(IProjectService service, string? category, string? status)
     {
         try
         {
-            var projects = service.GetAllProjects();
+            var projects = service.GetProjects(category, status);
             return Results.Ok(projects);
-        } 
-        catch (Exception ex) { 
-            return Results.BadRequest(new { message = $"{ex.Message}" });
+        }
+        catch (Exception ex)
+        {
+            return Results.Problem(ex.Message);
         }
     }
 
@@ -39,7 +40,7 @@ public static class ProjectEndpoints
         }
         catch (Exception ex)
         {
-            return Results.BadRequest(new { message = $"{ex.Message}" });
+            return Results.Problem(ex.Message);
         }
     }
 
@@ -50,9 +51,9 @@ public static class ProjectEndpoints
             var project = service.GetProjectById(id);
             return Results.Ok(project);
         }
-        catch (KeyNotFoundException ex)
+        catch (Exception ex)
         {
-            return Results.BadRequest(new { message = $"{ex.Message}" });
+            return Results.Problem(ex.Message);
         }
     }
 
@@ -65,7 +66,7 @@ public static class ProjectEndpoints
         }
         catch (Exception ex)
         {
-            return Results.BadRequest(new { message = $"{ex.Message}" });
+            return Results.Problem(ex.Message);
         }
     }
 
@@ -78,8 +79,7 @@ public static class ProjectEndpoints
         }
         catch (Exception ex)
         {
-            return Results.BadRequest(new { message = $"{ex.Message}" });
+            return Results.Problem(ex.Message);
         }
-    }
-   
+    }   
 }

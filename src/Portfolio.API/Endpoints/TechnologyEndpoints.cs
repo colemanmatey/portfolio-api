@@ -9,23 +9,23 @@ namespace Portfolio.API.Endpoints
         {
             var technologies = app.MapGroup("/api/technologies");
 
-            technologies.MapGet("/", GetAllTechnologies);
+            technologies.MapGet("/", GetTechnologies);
             technologies.MapPost("/", CreateTechnology);
             technologies.MapGet("/{id:int}", GetTechnologyById);
             technologies.MapPut("/{id:int}", UpdateTechnology);
             technologies.MapDelete("/{id:int}", DeleteTechnology);
         }
 
-        private static IResult GetAllTechnologies(ITechnologyService service)
+        private static IResult GetTechnologies(ITechnologyService service, string? category)
         {
             try
             {
-                var technologies = service.GetAllTechnologies();
+                var technologies = service.GetTechnologies(category);
                 return Results.Ok(technologies);
             }
             catch (Exception ex)
             {
-                return Results.BadRequest(new { message = $"{ex.Message}" });
+                return Results.Problem(ex.Message);
             }
         }
 
@@ -38,7 +38,7 @@ namespace Portfolio.API.Endpoints
             }
             catch (Exception ex)
             {
-                return Results.BadRequest(new { message = $"{ex.Message}" });
+                return Results.Problem(ex.Message);
             }
         }
 
@@ -50,9 +50,9 @@ namespace Portfolio.API.Endpoints
                 var technology = service.GetTechnologyById(id);
                 return Results.Ok(technology);
             }
-            catch (KeyNotFoundException ex)
+            catch (Exception ex)
             {
-                return Results.BadRequest(new { message = $"{ex.Message}" });
+                return Results.Problem(ex.Message);
             }
         }
 
@@ -65,7 +65,7 @@ namespace Portfolio.API.Endpoints
             }
             catch (Exception ex)
             {
-                return Results.BadRequest(new { message = $"{ex.Message}" });
+                return Results.Problem(ex.Message);
             }
         }
 
@@ -78,7 +78,7 @@ namespace Portfolio.API.Endpoints
             }
             catch (Exception ex)
             {
-                return Results.BadRequest(new { message = $"{ex.Message}" });
+                return Results.Problem(ex.Message);
             }
         }
     }
