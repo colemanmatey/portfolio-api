@@ -37,7 +37,7 @@ namespace Portfolio.API.Endpoints
             }
             catch (Exception ex)
             {
-                return Results.BadRequest(new { message = $"{ex.Message}" });
+                return Results.Problem(ex.Message);
             }
         }
 
@@ -50,7 +50,7 @@ namespace Portfolio.API.Endpoints
             }
             catch (Exception ex)
             {
-                return Results.BadRequest(new { message = $"{ex}" });
+                return Results.Problem(ex.Message);
             }
         }
 
@@ -64,7 +64,7 @@ namespace Portfolio.API.Endpoints
             }
             catch (Exception ex)
             {
-                return Results.BadRequest(new { message = $"{ex}" });
+                return Results.Problem(ex.Message);
             }
         }
 
@@ -77,7 +77,7 @@ namespace Portfolio.API.Endpoints
             }
             catch (Exception ex)
             {
-                return Results.BadRequest(new { message = $"{ex}" });
+                return Results.Problem(ex.Message);
             }
         }
 
@@ -91,7 +91,7 @@ namespace Portfolio.API.Endpoints
             }
             catch (Exception ex)
             {
-                return Results.BadRequest(new { message = $"{ex.Message}" });
+                return Results.Problem(ex.Message);
             }
         }
 
@@ -104,7 +104,7 @@ namespace Portfolio.API.Endpoints
             }
             catch (Exception ex)
             {
-                return Results.BadRequest(new { message = $"{ex}" });
+                return Results.Problem(ex.Message);
             }
         }
 
@@ -119,7 +119,7 @@ namespace Portfolio.API.Endpoints
             }
             catch (Exception ex)
             {
-                return Results.BadRequest(new { message = $"{ex}" });
+                return Results.Problem(ex.Message);
             }
         }
         private static IResult DeleteProjectVersion(IProjectService service, int id, int versionId)
@@ -131,7 +131,7 @@ namespace Portfolio.API.Endpoints
             }
             catch (Exception ex)
             {
-                return Results.BadRequest(new { message = $"{ex}" });
+                return Results.Problem(ex.Message);
             }
         }
     }
