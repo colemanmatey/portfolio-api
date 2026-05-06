@@ -7,7 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Common\Utilities\" />
+    <Compile Remove="Common\Utilities\**" />
+    <EmbeddedResource Remove="Common\Utilities\**" />
+    <None Remove="Common\Utilities\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Features\Technologies\" />
   </ItemGroup>
 

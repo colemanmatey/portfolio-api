@@ -1,4 +1,5 @@
-﻿using Portfolio.Domain.Interfaces;
+﻿using Portfolio.Domain.Entities.Technologies;
+using Portfolio.Domain.Interfaces;
 using Portfolio.Domain.ValueObjects;
 
 namespace Portfolio.Domain.Entities.Projects
@@ -11,6 +12,10 @@ namespace Portfolio.Domain.Entities.Projects
         // Navigational property
         public int ProjectId { get; set; }
         public Project Project { get; set; }
+
+        // link to tech versions
+        public ICollection<TechnologyVersion> TechnologyVersions { get; set; }
+            = new List<TechnologyVersion>();
 
         public override string ToString()
         {
