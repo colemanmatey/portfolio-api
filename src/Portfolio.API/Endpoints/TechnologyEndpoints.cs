@@ -9,17 +9,17 @@ namespace Portfolio.API.Endpoints
         {
             var technologies = app.MapGroup("/api/technologies");
 
-            technologies.MapGet("/", GetAllTechnologies);
+            technologies.MapGet("/", GetTechnologies);
             technologies.MapPost("/", CreateTechnology);
             technologies.MapGet("/{id:int}", GetTechnologyById);
             technologies.MapPut("/{id:int}", UpdateTechnology);
             technologies.MapDelete("/{id:int}", DeleteTechnology);
         }
 
-        private static IResult GetAllTechnologies(ITechnologyService service)
+        private static IResult GetTechnologies(ITechnologyService service, string? category)
         {
-            var technologies = service.GetAllTechnologies();
-            return Results.Ok(technologies);
+              var technologies = service.GetTechnologies(category);
+              return Results.Ok(technologies);
         }
 
         private static IResult CreateTechnology(ITechnologyService service, TechnologyDto dto)

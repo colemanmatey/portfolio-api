@@ -11,23 +11,17 @@ public static class ProjectEndpoints
         // Project endpoints
         var projects = app.MapGroup("/api/projects");
 
-        projects.MapGet("/", GetAllProjects);
+        projects.MapGet("/", GetProjects);
         projects.MapPost("/", CreateProject);
         projects.MapGet("/{id:int}", GetProjectById);
         projects.MapPut("/{id:int}", UpdateProject);
         projects.MapDelete("/{id:int}", DeleteProject);
     }
 
-    private static IResult GetAllProjects(IProjectService service)
+    private static IResult GetProjects(IProjectService service, string? category, string? status)
     {
-        try
-        {
-            var projects = service.GetAllProjects();
-            return Results.Ok(projects);
-        } 
-        catch (Exception ex) { 
-            return Results.BadRequest(new { message = $"{ex.Message}" });
-        }
+          var projects = service.GetProjects(category, status);
+          return Results.Ok(projects);
     }
 
     private static IResult CreateProject(IProjectService service, ProjectDto dto)

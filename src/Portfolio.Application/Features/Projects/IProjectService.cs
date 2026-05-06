@@ -6,7 +6,7 @@ namespace Portfolio.Application.Features.Projects
 {
     public interface IProjectService : IVersionService<ProjectVersion>
     {
-        ImmutableList<ProjectDto> GetAllProjects();
+        IEnumerable<ProjectDto> GetProjects(string? category, string? status);
         ProjectDto GetProjectById(int id);
         ProjectDto CreateProject(ProjectDto dto);
         ProjectDto UpdateProject(int id, ProjectDto dto);

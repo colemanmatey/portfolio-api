@@ -17,18 +17,18 @@ namespace Portfolio.Application.Features.Technologies
 
         }
 
-        public ImmutableList<TechnologyDto> GetAllTechnologies()
+        public IEnumerable<TechnologyDto> GetTechnologies(string? category)
         {
             var technologies = _techRepo.GetAll();
-
-            var technologyDtos = technologies.Select(technology => new TechnologyDto(
-                 technology.Id,
-                 technology.Name,
-                 technology.Category.ToString()
-            ))
-           .ToImmutableList();
-
-            return technologyDtos;
+            if (!string.IsNullOrEmpty(category))
+            {
+                technologies = technologies.Where(t => t.Category.ToString().Equals(category, StringComparison.OrdinalIgnoreCase));
+            }
+            return technologies.Select(t => new TechnologyDto(
+                id: t.Id,
+                name: t.Name,
+                category: t.Category.ToString()
+            ));
         }
 
         public TechnologyDto GetTechnologyById(int id)
