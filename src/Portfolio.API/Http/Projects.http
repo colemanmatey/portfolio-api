@@ -1,5 +1,5 @@
 # For more info on HTTP files go to https://aka.ms/vs/httpfile
-@URL = https://localhost:7055
+@URL = https://localhost:44354
 
 ### Get all projects
 GET {{URL}}/api/projects 
@@ -13,10 +13,10 @@ accept: application/json
 POST {{URL}}/api/projects
 Content-Type: application/json
 {
-  "title": "Budget app",
-  "description": "A hub for all users to manage their money",
+  "title": "Valet app",
+  "description": "A hub for parking your cars",
   "category": "Mobile",
-  "status": "Planned"
+  "status": "Ongoing"
 }
 
 ### Update Project

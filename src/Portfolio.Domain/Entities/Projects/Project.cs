@@ -14,16 +14,14 @@ namespace Portfolio.Domain.Entities.Projects
         public ProjectStatus Status { get; set; }
         
         // Navigational properties
-        public List<ProjectVersion> Versions { get; set; }
-        public List<Technology> Technologies { get; set; }
+        public ICollection<ProjectVersion> ProjectVersions { get; set; }
 
         private Project() 
         {
             Title = string.Empty;
             Category = SoftwareCategory.Unassigned;
             Status = ProjectStatus.New;
-            Versions = new List<ProjectVersion>();
-            Technologies = new List<Technology>();
+            ProjectVersions = new List<ProjectVersion>();
         }
 
         public Project(string title, string? description)
@@ -32,8 +30,7 @@ namespace Portfolio.Domain.Entities.Projects
             Description = description;
             Category = SoftwareCategory.Unassigned;
             Status = ProjectStatus.New;
-            Versions = new List<ProjectVersion>();
-            Technologies = new List<Technology>();
+            ProjectVersions = new List<ProjectVersion>();
         }
 
         public Project(int id, string title, string? description, string softwareCategory, string projectStatus)
@@ -43,8 +40,7 @@ namespace Portfolio.Domain.Entities.Projects
             Description = description;
             Category = ToSoftwareCategoryEnum(softwareCategory);
             Status = ToProjectStatusEnum(projectStatus);
-            Versions = new List<ProjectVersion>();
-            Technologies = new List<Technology>();
+            ProjectVersions = new List<ProjectVersion>();
         }
 
         public SoftwareCategory ToSoftwareCategoryEnum(string? input)

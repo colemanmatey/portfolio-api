@@ -38,15 +38,7 @@ namespace Portfolio.Infrastructure.Data
 
             // Relationships
             modelBuilder.Entity<Project>()
-                .HasMany(p => p.Technologies)
-                .WithMany(t => t.Projects)
-                .UsingEntity<Dictionary<string, object>>("ProjectTechnology",
-                     pt => pt.HasOne<Technology>().WithMany().HasForeignKey("TechnologyId"),
-                     pt => pt.HasOne<Project>().WithMany().HasForeignKey("ProjectId")
-                );
-
-            modelBuilder.Entity<Project>()
-                .HasMany(p => p.Versions)
+                .HasMany(p => p.ProjectVersions)
                 .WithOne(v => v.Project)
                 .HasForeignKey(v => v.ProjectId);
 
@@ -55,6 +47,24 @@ namespace Portfolio.Infrastructure.Data
                 .WithOne(v => v.Technology)
                 .HasForeignKey(v => v.TechnologyId);
 
+            modelBuilder.Entity<ProjectVersion>()
+                .HasMany(pv => pv.TechnologyVersions)
+                .WithMany(tv => tv.ProjectVersions)
+                .UsingEntity<Dictionary<string, object>>(
+                    "ProjectVersionTechnology",
+                    j => j.HasOne<TechnologyVersion>()
+                          .WithMany()
+                          .HasForeignKey("TechnologyVersionId")
+                          .OnDelete(DeleteBehavior.Cascade),
+                    j => j.HasOne<ProjectVersion>()
+                          .WithMany()
+                          .HasForeignKey("ProjectVersionId")
+                          .OnDelete(DeleteBehavior.Cascade),
+                    j =>
+                    {
+                        j.HasKey("ProjectVersionId", "TechnologyVersionId");
+                    }
+                );
 
             // Owned type definitions
             modelBuilder.Entity<ProjectVersion>()
@@ -63,7 +73,7 @@ namespace Portfolio.Infrastructure.Data
                     sa.Property(v => v.Major);
                     sa.Property(v => v.Minor);
                     sa.Property(v => v.Patch);
-                }); ;
+                });
 
             modelBuilder.Entity<TechnologyVersion>()
                 .OwnsOne(tv => tv.Version, sa =>

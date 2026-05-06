@@ -1,4 +1,5 @@
-﻿using Portfolio.Domain.Interfaces;
+﻿using Portfolio.Domain.Entities.Projects;
+using Portfolio.Domain.Interfaces;
 using Portfolio.Domain.ValueObjects;
 
 namespace Portfolio.Domain.Entities.Technologies
@@ -6,11 +7,14 @@ namespace Portfolio.Domain.Entities.Technologies
     public class TechnologyVersion : IHasId
     {
         public int Id { get; set; }
-        public SemanticVersion Version {  get; set; }
+        public SemanticVersion Version { get; set; }
 
         // Navigation property
         public int TechnologyId { get; set; }
         public Technology Technology { get; set; }
+
+        // ✅ Correct relationship
+        public ICollection<ProjectVersion> ProjectVersions { get; set; } = new List<ProjectVersion>();
 
         public override string ToString()
         {
