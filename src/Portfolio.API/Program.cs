@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Portfolio.API.Endpoints;
 using Portfolio.Application.Extensions;
@@ -33,6 +34,25 @@ namespace Portfolio.API
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            // Global Exception Handler
+            app.UseExceptionHandler(err =>
+            {
+                err.Run(async context =>
+                {
+                    var handler = context.Features.Get<IExceptionHandlerFeature>();
+                    var exception = handler?.Error;
+
+                    context.Response.StatusCode = 500;
+                    context.Response.ContentType = "application/json";
+
+                    await context.Response.WriteAsJsonAsync(new
+                    {
+                        message = exception?.Message
+                    });
+                });
+            });
+
 
             // Register endpoints
             app.MapGet("/", () => "Welcome to Coleman's Portfolio API!");

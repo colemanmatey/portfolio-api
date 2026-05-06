@@ -28,13 +28,12 @@ namespace Portfolio.Infrastructure.Repositories
             _context.SaveChanges();
         }
 
-        public ImmutableList<T> GetAll()
+        public IEnumerable<T> GetAll()
         {
-            var results = _context.Set<T>().ToList();
-            return results.ToImmutableList();
+            return _context.Set<T>().ToList();
         }
 
-        public ImmutableList<T> GetAll(params Expression<Func<T, object>>[] includes)
+        public IEnumerable<T> GetAll(params Expression<Func<T, object>>[] includes)
         {
             IQueryable<T> query = _context.Set<T>();
 
@@ -43,8 +42,7 @@ namespace Portfolio.Infrastructure.Repositories
                 query = query.Include(include);
             }
 
-            var results = query.ToList();
-            return results.ToImmutableList();
+            return query.ToList();
         }
 
         public T GetById(int id)

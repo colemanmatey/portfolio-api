@@ -11,75 +11,40 @@ public static class ProjectEndpoints
         // Project endpoints
         var projects = app.MapGroup("/api/projects");
 
-        projects.MapGet("/", GetAllProjects);
+        projects.MapGet("/", GetProjects);
         projects.MapPost("/", CreateProject);
         projects.MapGet("/{id:int}", GetProjectById);
         projects.MapPut("/{id:int}", UpdateProject);
         projects.MapDelete("/{id:int}", DeleteProject);
     }
 
-    private static IResult GetAllProjects(IProjectService service)
+    private static IResult GetProjects(IProjectService service, string? category, string? status)
     {
-        try
-        {
-            var projects = service.GetAllProjects();
-            return Results.Ok(projects);
-        } 
-        catch (Exception ex) { 
-            return Results.BadRequest(new { message = $"{ex.Message}" });
-        }
+          var projects = service.GetProjects(category, status);
+          return Results.Ok(projects);
     }
 
     private static IResult CreateProject(IProjectService service, ProjectDto dto)
     {
-        try
-        {
-            var project = service.CreateProject(dto);
-            return Results.Ok(project);
-        }
-        catch (Exception ex)
-        {
-            return Results.BadRequest(new { message = $"{ex.Message}" });
-        }
+        var project = service.CreateProject(dto);
+        return Results.Ok(project);
     }
 
     private static IResult GetProjectById(IProjectService service, int id)
     {
-        try
-        {
-            var project = service.GetProjectById(id);
-            return Results.Ok(project);
-        }
-        catch (KeyNotFoundException ex)
-        {
-            return Results.BadRequest(new { message = $"{ex.Message}" });
-        }
+        var project = service.GetProjectById(id);
+        return Results.Ok(project);
     }
 
     private static IResult UpdateProject(IProjectService service, int id, ProjectDto dto)
     {
-        try
-        {
-            var project = Results.Ok(service.UpdateProject(id, dto));
-            return Results.Ok(project);
-        }
-        catch (Exception ex)
-        {
-            return Results.BadRequest(new { message = $"{ex.Message}" });
-        }
+        var project = service.UpdateProject(id, dto);
+        return Results.Ok(project);
     }
 
     private static IResult DeleteProject(IProjectService service, int id)
     {
-        try
-        {
-            service.DeleteProject(id);
-            return Results.Ok(new { message = "Project deleted successfully" });
-        }
-        catch (Exception ex)
-        {
-            return Results.BadRequest(new { message = $"{ex.Message}" });
-        }
+        service.DeleteProject(id);
+        return Results.Ok(new { message = "Project deleted successfully" });
     }
-   
 }

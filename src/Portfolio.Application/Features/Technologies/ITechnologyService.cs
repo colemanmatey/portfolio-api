@@ -6,7 +6,7 @@ namespace Portfolio.Application.Features.Technologies
 {
     public interface ITechnologyService : IVersionService<TechnologyVersion>
     {
-        ImmutableList<TechnologyDto> GetAllTechnologies();
+        IEnumerable<TechnologyDto> GetTechnologies(string? category);
         TechnologyDto GetTechnologyById(int id);
         TechnologyDto CreateTechnology(TechnologyDto dto);
         TechnologyDto UpdateTechnology(int id, TechnologyDto dto);

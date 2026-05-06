@@ -32,3 +32,11 @@ Content-Type: application/json
 ### Delete Project
 DELETE {{URL}}/api/projects/4
 Accept: application/json
+
+### Get all projects with category
+GET {{URL}}/api/projects?category=Web
+accept: application/json
+
+### Get all projects with status
+GET {{URL}}/api/projects?status=Planned
+accept: application/json

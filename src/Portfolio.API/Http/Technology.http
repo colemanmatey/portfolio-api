@@ -28,3 +28,7 @@ Content-Type: application/json
 ### Delete technology
 DELETE {{URL}}/api/technologies/1
 Accept: application/json
+
+### Get all technologies with category
+GET {{URL}}/api/technologies?category=Framework
+accept: application/json
