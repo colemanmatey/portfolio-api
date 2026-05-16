@@ -9,14 +9,14 @@ namespace Portfolio.API.Endpoints
         public static void MapSemanticVersionEndpoints(this WebApplication app)
         {
             // Technology versions
-            var technologyVersions = app.MapGroup("/api/technologies");
+            var technologyVersions = app.MapGroup("/api/v1/technologies");
             technologyVersions.MapGet("/versions/all", GetAllTechVersions);
             technologyVersions.MapGet("/{id:int}/versions", GetAllTechVersionsById);
             technologyVersions.MapPost("/{id:int}/versions", AddVersionToTech);
             technologyVersions.MapDelete("/{id:int}/versions/{versionId:int}", DeleteTechVersion);
                 
             // Project versions
-            var projectVersions = app.MapGroup("/api/projects");
+            var projectVersions = app.MapGroup("/api/v1/projects");
             projectVersions.MapGet("/versions/all", GetAllProjectVersions);
             projectVersions.MapGet("/{id:int}/versions", GetAllProjectVersionsById);
             projectVersions.MapPost("/{id:int}/versions", AddVersionToProject);
