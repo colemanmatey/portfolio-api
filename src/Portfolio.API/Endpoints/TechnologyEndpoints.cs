@@ -1,5 +1,4 @@
 ﻿using Portfolio.Application.Features.Technologies;
-using Portfolio.Domain.Entities.Projects;
 
 namespace Portfolio.API.Endpoints
 {
@@ -7,7 +6,7 @@ namespace Portfolio.API.Endpoints
     {
         public static void MapTechnologyEndpoints(this WebApplication app)
         {
-            var technologies = app.MapGroup("/api/technologies");
+            var technologies = app.MapGroup("/api/v1/technologies");
 
             technologies.MapGet("/", GetTechnologies);
             technologies.MapPost("/", CreateTechnology);

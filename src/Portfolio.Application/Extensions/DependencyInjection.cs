@@ -7,7 +7,7 @@ using Portfolio.Domain.Entities.Technologies;
 
 namespace Portfolio.Application.Extensions
 {
-    public static class ApplicationServices
+    public static class DependencyInjection
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
@@ -16,7 +16,6 @@ namespace Portfolio.Application.Extensions
 
             services.AddScoped<ITechnologyService, TechnologyService>();
             services.AddScoped<IVersionService<TechnologyVersion>, TechnologyService>();
-
             return services;
         }
     }

@@ -2,18 +2,13 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Portfolio.Application.Common.Interfaces;
-using Portfolio.Domain.Entities;
 using Portfolio.Infrastructure.Data;
 using Portfolio.Infrastructure.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Portfolio.Infrastructure.Services;
 
 namespace Portfolio.Infrastructure.Extensions
 {
-    public static class InfrastructureServices
+    public static class DependencyInjection
     {
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
         {
@@ -27,8 +22,9 @@ namespace Portfolio.Infrastructure.Extensions
                     )
                 )
             );
-
+            services.AddScoped<IHealthCheckService, HealthCheckService>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+
 
             return services;
         }
