@@ -1,6 +1,5 @@
 ﻿using Portfolio.Application.Common.Interfaces;
 using Portfolio.Domain.Entities.Projects;
-using System.Collections.Immutable;
 
 namespace Portfolio.Application.Features.Projects
 {

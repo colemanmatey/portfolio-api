@@ -1,11 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Portfolio.Domain.Entities.Projects;
 using Portfolio.Domain.Entities.Technologies;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portfolio.Infrastructure.Data
 {
