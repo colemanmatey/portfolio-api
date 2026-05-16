@@ -1,10 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Portfolio.Application.Common.Interfaces;
-using Portfolio.Application.DTOs;
+﻿using Portfolio.Application.DTOs;
 using Portfolio.Application.Features.Projects;
 using Portfolio.Application.Features.Technologies;
-using Portfolio.Domain.Entities.Projects;
-using Portfolio.Domain.Entities.Technologies;
 
 namespace Portfolio.API.Endpoints
 {

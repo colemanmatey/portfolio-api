@@ -1,5 +1,4 @@
 ﻿using Portfolio.Application.Features.Technologies;
-using Portfolio.Domain.Entities.Projects;
 
 namespace Portfolio.API.Endpoints
 {

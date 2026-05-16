@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-using Portfolio.Application.Features.Projects;
+﻿using Portfolio.Application.Features.Projects;
 
 namespace Portfolio.API.Endpoints;
 

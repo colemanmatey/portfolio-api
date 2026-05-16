@@ -1,9 +1,7 @@
 ﻿using Portfolio.Application.Common.Interfaces;
 using Portfolio.Application.DTOs;
 using Portfolio.Domain.Entities.Projects;
-using Portfolio.Domain.Entities.Technologies;
 using Portfolio.Domain.ValueObjects;
-using System;
 using System.Collections.Immutable;
 
 namespace Portfolio.Application.Features.Projects
